@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EABEBE591DCC7FE3000A615F /* UIView+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = EABEBE581DCC7FE3000A615F /* UIView+Rotate.m */; };
 		EE55DC0C1BCFC74700B7660F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC0B1BCFC74700B7660F /* main.m */; };
 		EE55DC0F1BCFC74700B7660F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC0E1BCFC74700B7660F /* AppDelegate.m */; };
 		EE55DC121BCFC74700B7660F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC111BCFC74700B7660F /* ViewController.m */; };
@@ -14,7 +15,6 @@
 		EE55DC171BCFC74700B7660F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE55DC161BCFC74700B7660F /* Images.xcassets */; };
 		EE55DC1A1BCFC74700B7660F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE55DC181BCFC74700B7660F /* LaunchScreen.xib */; };
 		EE55DC261BCFC74700B7660F /* mainViewRotateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC251BCFC74700B7660F /* mainViewRotateTests.m */; };
-		EEC2790B1BD0C14500D314D3 /* bounceView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC2790A1BD0C14500D314D3 /* bounceView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EABEBE571DCC7FE3000A615F /* UIView+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Rotate.h"; sourceTree = "<group>"; };
+		EABEBE581DCC7FE3000A615F /* UIView+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Rotate.m"; sourceTree = "<group>"; };
 		EE55DC061BCFC74700B7660F /* mainViewRotate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mainViewRotate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE55DC0A1BCFC74700B7660F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE55DC0B1BCFC74700B7660F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -41,8 +43,6 @@
 		EE55DC1F1BCFC74700B7660F /* mainViewRotateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mainViewRotateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE55DC241BCFC74700B7660F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE55DC251BCFC74700B7660F /* mainViewRotateTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mainViewRotateTests.m; sourceTree = "<group>"; };
-		EEC279091BD0C14500D314D3 /* bounceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bounceView.h; sourceTree = "<group>"; };
-		EEC2790A1BD0C14500D314D3 /* bounceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bounceView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +84,7 @@
 		EE55DC081BCFC74700B7660F /* mainViewRotate */ = {
 			isa = PBXGroup;
 			children = (
-				EEC279081BD0BEA900D314D3 /* bounceView */,
+				EEC279081BD0BEA900D314D3 /* RotateView */,
 				EE55DC0D1BCFC74700B7660F /* AppDelegate.h */,
 				EE55DC0E1BCFC74700B7660F /* AppDelegate.m */,
 				EE55DC101BCFC74700B7660F /* ViewController.h */,
@@ -123,13 +123,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		EEC279081BD0BEA900D314D3 /* bounceView */ = {
+		EEC279081BD0BEA900D314D3 /* RotateView */ = {
 			isa = PBXGroup;
 			children = (
-				EEC279091BD0C14500D314D3 /* bounceView.h */,
-				EEC2790A1BD0C14500D314D3 /* bounceView.m */,
+				EABEBE571DCC7FE3000A615F /* UIView+Rotate.h */,
+				EABEBE581DCC7FE3000A615F /* UIView+Rotate.m */,
 			);
-			name = bounceView;
+			name = RotateView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,8 +233,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE55DC121BCFC74700B7660F /* ViewController.m in Sources */,
+				EABEBE591DCC7FE3000A615F /* UIView+Rotate.m in Sources */,
 				EE55DC0F1BCFC74700B7660F /* AppDelegate.m in Sources */,
-				EEC2790B1BD0C14500D314D3 /* bounceView.m in Sources */,
 				EE55DC0C1BCFC74700B7660F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
