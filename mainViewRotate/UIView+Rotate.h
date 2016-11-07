@@ -16,6 +16,14 @@ typedef NS_ENUM(NSUInteger,RAlignment) {
 };
 typedef void(^Finished)(BOOL);
 @interface UIView (Rotate)
-- (void)AnimationRotateWithDuration:(NSInteger)time alignment:(RAlignment)alignment completion:(Finished)completion;
+@property (nonatomic,assign) NSInteger rotateTime;
+@property (nonatomic,retain) CAKeyframeAnimation *keyAnimation;
+- (UIView *)topRotate;
+- (UIView *)bottomRotate;
+- (UIView *)leftRotate;
+- (UIView *)rightRotate;
+- (UIView *)rotateX;
+- (UIView *)rotateY;
+- (UIView *)animationRotate;
 @end
 

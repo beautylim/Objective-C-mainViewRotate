@@ -9,7 +9,8 @@
 #import "ViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIView+Rotate.h"
-
+#define Screen_Width [UIScreen mainScreen].bounds.size.width
+#define Screen_Height [UIScreen mainScreen].bounds.size.height
 @interface ViewController ()
 @property (strong,nonatomic) UIView *topView;
 @property (strong,nonatomic) UIImageView *topImageView;
@@ -25,7 +26,7 @@
     [self.view setBackgroundColor:[UIColor grayColor]];
     self.topView=[[UIView alloc]init];
     //大小
-    [self.topView setFrame:CGRectMake(20, self.navigationController.navigationBar.bounds.size.height + 20 , self.view.bounds.size.width - 40 , self.view.bounds.size.height * 0.333)];
+    [self.topView setFrame:CGRectMake(20, 20 , Screen_Width - 40 , Screen_Height * 0.333)];
     [self.view addSubview:self.topView];
     self.topImageView=[[UIImageView alloc]init];
     NSLog(@"topView (x=%lf,y=%lf,width=%lf,height=%lf)",self.topView.frame.origin.x,self.topView.frame.origin.y,self.view.bounds.size.width,self.view.bounds.size.height);
@@ -35,7 +36,8 @@
     [self.topImageView setFrame:CGRectMake(0, 0, self.topView.bounds.size.width, self.topView.bounds.size.height)];
     //加入view
     [self.topView addSubview:self.topImageView];
-    [self.topView AnimationRotateWithDuration:2 alignment:RAlignment_Top completion:nil];
+    self.topView.rotateTime = 2;
+    [self.topView.topRotate.rotateX animationRotate];
    
 }
 

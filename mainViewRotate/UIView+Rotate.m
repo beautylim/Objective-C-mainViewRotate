@@ -7,41 +7,114 @@
 //
 
 #import "UIView+Rotate.h"
+#import <objc/runtime.h>
 
 @implementation UIView (Rotate)
+static char rotateTimeKey = 'n';
+static char keyAnimationKey = 's';
+@dynamic rotateTime;
 
-- (void)AnimationRotateWithDuration:(NSInteger)time alignment:(RAlignment)alignment completion:(Finished)completion{
-    [self setRotateProperty:alignment];
-    [self setAnimation:self.layer withDuration:time alignment:alignment andwithframe:self.frame];
+
+- (void)setRotateTime:(NSInteger)rotateTime{
+    NSString *number = [NSString stringWithFormat:@"%ld",(long)rotateTime];
+    objc_setAssociatedObject(self, &rotateTimeKey, number, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (void)setRotateProperty:(RAlignment)alignment{
+- (NSInteger)rotateTime{
+    return [objc_getAssociatedObject(self, &rotateTimeKey) integerValue];
+}
+
+- (void)setKeyAnimation:(CAKeyframeAnimation *)keyAnimation{
+    objc_setAssociatedObject(self, &keyAnimationKey, keyAnimation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (CAKeyframeAnimation *)keyAnimation{
+    return objc_getAssociatedObject(self, &keyAnimationKey);
+}
+
+
+- (UIView *)topRotate{
+    [self setAnchorPoint:CGPointMake(0.5, 0)];//设置锚点
     CATransform3D transform = CATransform3DIdentity;
-    transform.m34 = -0.002;
     CATransform3D rotate;
-    switch (alignment) {
-        case RAlignment_Top:
-            rotate = CATransform3DMakeRotation(-M_PI/4, 1, 0., 0);
-            transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 2000);
-            break;
-        case RAlignment_Right:
-            rotate = CATransform3DMakeRotation(-M_PI/4, 0, 1, 0);
-            transform = CATransform3DPerspect(rotate, CGPointMake(1, 0), 2000);
-            break;
-        case RAlignment_Bottom:
-            rotate = CATransform3DMakeRotation(-M_PI/4, 1, 0, 0);
-            transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 2000);
-            break;
-        case RAlignment_Left:
-            rotate = CATransform3DMakeRotation(-M_PI/4, 0, 0, 1);
-            transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 2000);
-        default:
-            break;
-    }
-    
-    
-    [self.layer setTransform:transform];
+    rotate = CATransform3DMakeRotation(-M_PI/4, 1, 0, 0); //控制旋转角度和以什么轴旋转,你想绕哪个轴哪个轴就为1 ,上1，下-1，左-1，右1
+    transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 2000); //透视，轻微旋转了Z轴
+    [self.layer setTransform:transform];//初始的view旋转完毕
+    return self;
 }
+
+- (UIView *)bottomRotate{
+    [self setAnchorPoint:CGPointMake(0.5, 1)];
+    CATransform3D transform = CATransform3DIdentity;
+    transform.m34 = 1/-500;
+    CATransform3D rotate;
+    rotate = CATransform3DMakeRotation(-M_PI/4, -1, 0, 0);
+    transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 2000);
+    [self.layer setTransform:transform];
+    return self;
+}
+
+- (UIView *)rightRotate{
+    [self setAnchorPoint:CGPointMake(1, 0.5)];
+    CATransform3D transform = CATransform3DIdentity;
+    transform.m34 = 1/-500;//负责Z轴的移动，越小透视越明显,D就是观察者到透视面的距离
+    CATransform3D rotate;
+    rotate = CATransform3DMakeRotation(-M_PI/4, 0, 1, 0); //控制旋转角度和以什么轴旋转,你想绕哪个轴哪个轴就为1
+    transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 2000);
+    [self.layer setTransform:transform];
+    return self;
+}
+
+- (UIView *)leftRotate{
+    [self setAnchorPoint:CGPointMake(0, 0.5)];
+    CATransform3D transform = CATransform3DIdentity;
+    transform.m34 = 1/-500;//负责Z轴的移动，越小透视越明显,D就是观察者到透视面的距离
+    CATransform3D rotate;
+    rotate = CATransform3DMakeRotation(-M_PI/4, 0, -1, 0); //控制旋转角度和以什么轴旋转,你想绕哪个轴哪个轴就为1
+    transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 4000);
+    [self.layer setTransform:transform];
+    return self;
+}
+
+//帧动画，绕着X轴旋转
+- (UIView *)rotateX{
+     CAKeyframeAnimation *keyAnima=[CAKeyframeAnimation animation];
+    keyAnima.keyPath=@"transform.rotation.x";
+    self.keyAnimation = keyAnima;
+    return self;
+}
+
+- (UIView *)rotateY{
+    CAKeyframeAnimation *keyAnima=[CAKeyframeAnimation animation];
+    keyAnima.keyPath=@"transform.rotation.y";
+    self.keyAnimation = keyAnima;
+    return self;
+}
+
+//动画轨迹
+- (UIView *)animationRotate{
+    NSNumber *num1=[NSNumber numberWithFloat:-M_PI * 0.25];
+    NSNumber *num2=[NSNumber numberWithFloat:M_PI * 0.2];
+    NSNumber *num3=[NSNumber numberWithFloat:-M_PI * 0.1];
+    NSNumber *num4=[NSNumber numberWithFloat:M_PI * 0.05];
+    NSNumber *num5=[NSNumber numberWithFloat:-M_PI * 0.025];
+    NSNumber *num6=[NSNumber numberWithFloat:M_PI * 0.0];
+    NSNumber *time1=[NSNumber numberWithFloat: 0.0];
+    NSNumber *time2=[NSNumber numberWithFloat: 0.2];
+    NSNumber *time3=[NSNumber numberWithFloat: 0.5];
+    NSNumber *time4=[NSNumber numberWithFloat: 0.75];
+    NSNumber *time5=[NSNumber numberWithFloat: 0.9];
+    NSNumber *time6=[NSNumber numberWithFloat: 1.0];
+    self.keyAnimation.values=@[num1,num2,num3,num4,num5,num6];
+    self.keyAnimation.keyTimes=@[time1,time2,time3,time4,time5,time6];
+    self.keyAnimation.fillMode=kCAFillModeForwards;
+    self.keyAnimation.duration = [self rotateTime];
+    self.keyAnimation.removedOnCompletion = NO;
+    self.keyAnimation.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    [self.layer addAnimation:self.keyAnimation forKey:@"animateTransform"];
+    return  self;
+}
+
 CATransform3D CATransform3DMakePerspective(CGPoint center, float disZ)
 {
     CATransform3D transToCenter = CATransform3DMakeTranslation(-center.x, -center.y, 0);
@@ -56,44 +129,12 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
     return CATransform3DConcat(t, CATransform3DMakePerspective(center, disZ));
 }
 
--(void)setAnimation: (CALayer *)layer withDuration: (NSInteger)duration alignment:(RAlignment)alignment andwithframe:(CGRect )oldframe  {
-    
-    CAKeyframeAnimation *keyAnima=[CAKeyframeAnimation animation];
-    switch (alignment) {
-        case RAlignment_Top:
-        case RAlignment_Bottom:
-            keyAnima.keyPath=@"transform.rotation.x";
-            break;
-        case RAlignment_Right:
-        case RAlignment_Left:
-            keyAnima.keyPath=@"transform.rotation.y";
-            break;
-        default:
-            break;
-    }
-    
-    NSNumber *num1=[NSNumber numberWithFloat:-M_PI * 0.35];
-    NSNumber *num2=[NSNumber numberWithFloat:M_PI * 0.25];
-    NSNumber *num3=[NSNumber numberWithFloat:-M_PI * 0.1];
-    NSNumber *num4=[NSNumber numberWithFloat:M_PI * 0.05];
-    NSNumber *num5=[NSNumber numberWithFloat:-M_PI * 0.025];
-    NSNumber *num6=[NSNumber numberWithFloat:M_PI * 0.0];
-    NSNumber *time1=[NSNumber numberWithFloat: 0.0];
-    NSNumber *time2=[NSNumber numberWithFloat: 0.2];
-    NSNumber *time3=[NSNumber numberWithFloat: 0.5];
-    NSNumber *time4=[NSNumber numberWithFloat: 0.75];
-    NSNumber *time5=[NSNumber numberWithFloat: 0.9];
-    NSNumber *time6=[NSNumber numberWithFloat: 1.0];
-    keyAnima.values=@[num1,num2,num3,num4,num5,num6];
-    keyAnima.keyTimes=@[time1,time2,time3,time4,time5,time6];
-    keyAnima.fillMode=kCAFillModeForwards;
-    keyAnima.duration = duration;
-    keyAnima.removedOnCompletion = NO;
-    keyAnima.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    [layer setAnchorPoint:CGPointMake(0.5, 0)];
-    layer.frame = oldframe;
-    [layer addAnimation:keyAnima forKey:@"animateTransform"];
-    
+- (void)setAnchorPoint:(CGPoint)anchorPoint
+{
+//    CGPoint oldOrigin = self.center;
+    CGRect oldFrame = self.frame;
+    self.layer.anchorPoint = anchorPoint;
+    self.frame = oldFrame;
 }
 
 -(void)removeAnimation:(CALayer *)layer withKey: (NSString *)string{
