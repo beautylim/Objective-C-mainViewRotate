@@ -7,23 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-//旋转的中轴
-typedef NS_ENUM(NSUInteger,RAlignment) {
-    RAlignment_Top = 0,
-    RAlignment_Right,
-    RAlignment_Bottom,
-    RAlignment_Left
-};
-typedef void(^Finished)(BOOL);
-@interface UIView (Rotate)
-@property (nonatomic,assign) NSInteger rotateTime;
+
+typedef UIView *(^RotateBlock)();
+typedef void (^FinishedAnima)(BOOL);
+typedef UIView *(^RotateAnimationBlock)(NSInteger,FinishedAnima);
+@interface UIView (Rotate)<CAAnimationDelegate>
 @property (nonatomic,retain) CAKeyframeAnimation *keyAnimation;
-- (UIView *)topRotate;
-- (UIView *)bottomRotate;
-- (UIView *)leftRotate;
-- (UIView *)rightRotate;
-- (UIView *)rotateX;
-- (UIView *)rotateY;
-- (UIView *)animationRotate;
+@property (nonatomic,copy) FinishedAnima completion;
+- (RotateBlock)topRotate;
+- (RotateBlock)bottomRotate;
+- (RotateBlock)leftRotate;
+- (RotateBlock)rightRotate;
+- (RotateBlock)rotateX;
+- (RotateBlock)rotateY;
+- (RotateAnimationBlock)animationRotate;
 @end
 

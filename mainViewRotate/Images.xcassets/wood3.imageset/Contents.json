@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "bloodPressureBgO.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "wood3.png",
       "scale" : "2x"
     },
     {

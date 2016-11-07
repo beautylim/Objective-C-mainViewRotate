@@ -10,20 +10,8 @@
 #import <objc/runtime.h>
 
 @implementation UIView (Rotate)
-static char rotateTimeKey = 'n';
 static char keyAnimationKey = 's';
-@dynamic rotateTime;
-
-
-- (void)setRotateTime:(NSInteger)rotateTime{
-    NSString *number = [NSString stringWithFormat:@"%ld",(long)rotateTime];
-    objc_setAssociatedObject(self, &rotateTimeKey, number, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-- (NSInteger)rotateTime{
-    return [objc_getAssociatedObject(self, &rotateTimeKey) integerValue];
-}
-
+static char completionKey = 'n';
 - (void)setKeyAnimation:(CAKeyframeAnimation *)keyAnimation{
     objc_setAssociatedObject(self, &keyAnimationKey, keyAnimation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -32,87 +20,108 @@ static char keyAnimationKey = 's';
     return objc_getAssociatedObject(self, &keyAnimationKey);
 }
 
-
-- (UIView *)topRotate{
-    [self setAnchorPoint:CGPointMake(0.5, 0)];//设置锚点
-    CATransform3D transform = CATransform3DIdentity;
-    CATransform3D rotate;
-    rotate = CATransform3DMakeRotation(-M_PI/4, 1, 0, 0); //控制旋转角度和以什么轴旋转,你想绕哪个轴哪个轴就为1 ,上1，下-1，左-1，右1
-    transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 2000); //透视，轻微旋转了Z轴
-    [self.layer setTransform:transform];//初始的view旋转完毕
-    return self;
+- (void)setCompletion:(FinishedAnima)completion{
+    objc_setAssociatedObject(self, &completionKey, completion, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (UIView *)bottomRotate{
-    [self setAnchorPoint:CGPointMake(0.5, 1)];
-    CATransform3D transform = CATransform3DIdentity;
-    transform.m34 = 1/-500;
-    CATransform3D rotate;
-    rotate = CATransform3DMakeRotation(-M_PI/4, -1, 0, 0);
-    transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 2000);
-    [self.layer setTransform:transform];
-    return self;
+- (FinishedAnima)completion{
+    return objc_getAssociatedObject(self, &completionKey);
 }
 
-- (UIView *)rightRotate{
-    [self setAnchorPoint:CGPointMake(1, 0.5)];
-    CATransform3D transform = CATransform3DIdentity;
-    transform.m34 = 1/-500;//负责Z轴的移动，越小透视越明显,D就是观察者到透视面的距离
-    CATransform3D rotate;
-    rotate = CATransform3DMakeRotation(-M_PI/4, 0, 1, 0); //控制旋转角度和以什么轴旋转,你想绕哪个轴哪个轴就为1
-    transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 2000);
-    [self.layer setTransform:transform];
-    return self;
+- (RotateBlock)topRotate{
+    return ^(){
+        [self setAnchorPoint:CGPointMake(0.5, 0)];//设置锚点
+        CATransform3D transform = CATransform3DIdentity;
+        CATransform3D rotate;
+        rotate = CATransform3DMakeRotation(-M_PI/4, 1, 0, 0); //控制旋转角度和以什么轴旋转,你想绕哪个轴哪个轴就为1 ,上1，下-1，左-1，右1
+        transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 2000); //透视，轻微旋转了Z轴
+        [self.layer setTransform:transform];//初始的view旋转完毕
+        return self;
+    };
+    
 }
 
-- (UIView *)leftRotate{
-    [self setAnchorPoint:CGPointMake(0, 0.5)];
-    CATransform3D transform = CATransform3DIdentity;
-    transform.m34 = 1/-500;//负责Z轴的移动，越小透视越明显,D就是观察者到透视面的距离
-    CATransform3D rotate;
-    rotate = CATransform3DMakeRotation(-M_PI/4, 0, -1, 0); //控制旋转角度和以什么轴旋转,你想绕哪个轴哪个轴就为1
-    transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 4000);
-    [self.layer setTransform:transform];
-    return self;
+- (RotateBlock)bottomRotate{
+    return ^(){
+        [self setAnchorPoint:CGPointMake(0.5, 1)];
+        CATransform3D transform = CATransform3DIdentity;
+        CATransform3D rotate;
+        rotate = CATransform3DMakeRotation(-M_PI/4, -1, 0, 0);
+        transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 2000);
+        [self.layer setTransform:transform];
+        return self;
+    };
+}
+
+- (RotateBlock)rightRotate{
+    return ^(){
+        [self setAnchorPoint:CGPointMake(1, 0.5)];
+        CATransform3D transform = CATransform3DIdentity;
+        CATransform3D rotate;
+        rotate = CATransform3DMakeRotation(-M_PI/4, 0, 1, 0);
+        transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 2000);
+        [self.layer setTransform:transform];
+        return self;
+    };
+}
+
+- (RotateBlock)leftRotate{
+    return ^(){
+        [self setAnchorPoint:CGPointMake(0, 0.5)];
+        CATransform3D transform = CATransform3DIdentity;
+        CATransform3D rotate;
+        rotate = CATransform3DMakeRotation(-M_PI/4, 0, -1, 0);
+        transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 4000);
+        [self.layer setTransform:transform];
+        return self;
+    };
 }
 
 //帧动画，绕着X轴旋转
-- (UIView *)rotateX{
-     CAKeyframeAnimation *keyAnima=[CAKeyframeAnimation animation];
-    keyAnima.keyPath=@"transform.rotation.x";
-    self.keyAnimation = keyAnima;
-    return self;
+- (RotateBlock)rotateX{
+    return ^(){
+        CAKeyframeAnimation *keyAnima=[CAKeyframeAnimation animation];
+        keyAnima.keyPath=@"transform.rotation.x";
+        self.keyAnimation = keyAnima;
+        return self;
+    };
 }
 
-- (UIView *)rotateY{
-    CAKeyframeAnimation *keyAnima=[CAKeyframeAnimation animation];
-    keyAnima.keyPath=@"transform.rotation.y";
-    self.keyAnimation = keyAnima;
-    return self;
+- (RotateBlock)rotateY{
+    return ^(){
+        CAKeyframeAnimation *keyAnima=[CAKeyframeAnimation animation];
+        keyAnima.keyPath=@"transform.rotation.y";
+        self.keyAnimation = keyAnima;
+        return self;
+    };
 }
 
 //动画轨迹
-- (UIView *)animationRotate{
-    NSNumber *num1=[NSNumber numberWithFloat:-M_PI * 0.25];
-    NSNumber *num2=[NSNumber numberWithFloat:M_PI * 0.2];
-    NSNumber *num3=[NSNumber numberWithFloat:-M_PI * 0.1];
-    NSNumber *num4=[NSNumber numberWithFloat:M_PI * 0.05];
-    NSNumber *num5=[NSNumber numberWithFloat:-M_PI * 0.025];
-    NSNumber *num6=[NSNumber numberWithFloat:M_PI * 0.0];
-    NSNumber *time1=[NSNumber numberWithFloat: 0.0];
-    NSNumber *time2=[NSNumber numberWithFloat: 0.2];
-    NSNumber *time3=[NSNumber numberWithFloat: 0.5];
-    NSNumber *time4=[NSNumber numberWithFloat: 0.75];
-    NSNumber *time5=[NSNumber numberWithFloat: 0.9];
-    NSNumber *time6=[NSNumber numberWithFloat: 1.0];
-    self.keyAnimation.values=@[num1,num2,num3,num4,num5,num6];
-    self.keyAnimation.keyTimes=@[time1,time2,time3,time4,time5,time6];
-    self.keyAnimation.fillMode=kCAFillModeForwards;
-    self.keyAnimation.duration = [self rotateTime];
-    self.keyAnimation.removedOnCompletion = NO;
-    self.keyAnimation.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
-    [self.layer addAnimation:self.keyAnimation forKey:@"animateTransform"];
-    return  self;
+- (RotateAnimationBlock)animationRotate{
+    return ^(NSInteger time,FinishedAnima completion){
+        self.completion = completion;
+        NSNumber *num1=[NSNumber numberWithFloat:-M_PI * 0.25];
+        NSNumber *num2=[NSNumber numberWithFloat:M_PI * 0.2];
+        NSNumber *num3=[NSNumber numberWithFloat:-M_PI * 0.1];
+        NSNumber *num4=[NSNumber numberWithFloat:M_PI * 0.05];
+        NSNumber *num5=[NSNumber numberWithFloat:-M_PI * 0.025];
+        NSNumber *num6=[NSNumber numberWithFloat:M_PI * 0.0];
+        NSNumber *time1=[NSNumber numberWithFloat: 0.0];
+        NSNumber *time2=[NSNumber numberWithFloat: 0.2];
+        NSNumber *time3=[NSNumber numberWithFloat: 0.5];
+        NSNumber *time4=[NSNumber numberWithFloat: 0.75];
+        NSNumber *time5=[NSNumber numberWithFloat: 0.9];
+        NSNumber *time6=[NSNumber numberWithFloat: 1.0];
+        self.keyAnimation.values=@[num1,num2,num3,num4,num5,num6];
+        self.keyAnimation.keyTimes=@[time1,time2,time3,time4,time5,time6];
+        self.keyAnimation.fillMode=kCAFillModeForwards;
+        self.keyAnimation.duration = time;
+        self.keyAnimation.removedOnCompletion = NO;
+        self.keyAnimation.delegate = self;
+        self.keyAnimation.timingFunction=[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+        [self.layer addAnimation:self.keyAnimation forKey:@"animateTransform"];
+        return  self;
+    };
 }
 
 CATransform3D CATransform3DMakePerspective(CGPoint center, float disZ)
@@ -131,14 +140,20 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
 
 - (void)setAnchorPoint:(CGPoint)anchorPoint
 {
-//    CGPoint oldOrigin = self.center;
     CGRect oldFrame = self.frame;
     self.layer.anchorPoint = anchorPoint;
     self.frame = oldFrame;
 }
 
--(void)removeAnimation:(CALayer *)layer withKey: (NSString *)string{
-    [layer removeAnimationForKey:string];
+-(void)removeAnimationwithKey: (NSString *)string{
+    [self.layer removeAnimationForKey:string];
+    
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
+    if (self.completion != nil) {
+        self.completion(flag);
+    }
     
 }
 @end
