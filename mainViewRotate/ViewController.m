@@ -32,6 +32,7 @@
 }
 
 - (void)showTopImageView{
+    [NSThread sleepForTimeInterval:2];
     [self.view addSubview:self.topImageView];
     self.topImageView.topRotate().rotateX().animationRotate(2,^(BOOL flag){
         [self showBottomImageView];

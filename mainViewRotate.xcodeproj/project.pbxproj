@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA4607051DD17F94007632EB /* rotate.gif in Resources */ = {isa = PBXBuildFile; fileRef = EA4607041DD17F94007632EB /* rotate.gif */; };
 		EABEBE591DCC7FE3000A615F /* UIView+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = EABEBE581DCC7FE3000A615F /* UIView+Rotate.m */; };
 		EE55DC0C1BCFC74700B7660F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC0B1BCFC74700B7660F /* main.m */; };
 		EE55DC0F1BCFC74700B7660F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC0E1BCFC74700B7660F /* AppDelegate.m */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EA4607041DD17F94007632EB /* rotate.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rotate.gif; sourceTree = "<group>"; };
 		EABEBE571DCC7FE3000A615F /* UIView+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Rotate.h"; sourceTree = "<group>"; };
 		EABEBE581DCC7FE3000A615F /* UIView+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Rotate.m"; sourceTree = "<group>"; };
 		EE55DC061BCFC74700B7660F /* mainViewRotate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mainViewRotate.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +65,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA4607031DD17F72007632EB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EA4607041DD17F94007632EB /* rotate.gif */,
+				EE55DC161BCFC74700B7660F /* Images.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		EE55DBFD1BCFC74700B7660F = {
 			isa = PBXGroup;
 			children = (
@@ -84,13 +95,13 @@
 		EE55DC081BCFC74700B7660F /* mainViewRotate */ = {
 			isa = PBXGroup;
 			children = (
+				EA4607031DD17F72007632EB /* Resources */,
 				EEC279081BD0BEA900D314D3 /* RotateView */,
 				EE55DC0D1BCFC74700B7660F /* AppDelegate.h */,
 				EE55DC0E1BCFC74700B7660F /* AppDelegate.m */,
 				EE55DC101BCFC74700B7660F /* ViewController.h */,
 				EE55DC111BCFC74700B7660F /* ViewController.m */,
 				EE55DC131BCFC74700B7660F /* Main.storyboard */,
-				EE55DC161BCFC74700B7660F /* Images.xcassets */,
 				EE55DC181BCFC74700B7660F /* LaunchScreen.xib */,
 				EE55DC091BCFC74700B7660F /* Supporting Files */,
 			);
@@ -181,6 +192,7 @@
 				TargetAttributes = {
 					EE55DC051BCFC74700B7660F = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 2B889MA252;
 					};
 					EE55DC1E1BCFC74700B7660F = {
 						CreatedOnToolsVersion = 6.3;
@@ -213,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE55DC151BCFC74700B7660F /* Main.storyboard in Resources */,
+				EA4607051DD17F94007632EB /* rotate.gif in Resources */,
 				EE55DC1A1BCFC74700B7660F /* LaunchScreen.xib in Resources */,
 				EE55DC171BCFC74700B7660F /* Images.xcassets in Resources */,
 			);
@@ -366,6 +379,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2B889MA252;
 				INFOPLIST_FILE = mainViewRotate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.limin.$(PRODUCT_NAME:rfc1034identifier)";
@@ -377,6 +391,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2B889MA252;
 				INFOPLIST_FILE = mainViewRotate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.limin.$(PRODUCT_NAME:rfc1034identifier)";
