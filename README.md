@@ -8,7 +8,8 @@ Objective-C 实现的UIView及其子类如UIImageView，沿着四边从里向外
 ###使用方法：
 
 ![image](https://github.com/beautylim/Objective-C-mainViewRotate/blob/master/mainViewRotate/rotateUsage.png)
-将<code>UIView+Rotate.h</code>和<code>UIView+Rotate.m</code>文件拖进项目，在所需要的<code>viewController</code><code>import</code><code>UIView+Rotate.h</code>文件
+
+将<code>UIView+Rotate.h</code>和<code>UIView+Rotate.m</code>文件拖进项目，在所需要的<code>viewController</code>中   <code>import</code>一下<code>UIView+Rotate.h</code>文件
 
 在所需的代码位置中写下：
 
