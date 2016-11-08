@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EA4607051DD17F94007632EB /* rotate.gif in Resources */ = {isa = PBXBuildFile; fileRef = EA4607041DD17F94007632EB /* rotate.gif */; };
+		EA4607071DD18207007632EB /* rotateUsage.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4607061DD18207007632EB /* rotateUsage.png */; };
 		EABEBE591DCC7FE3000A615F /* UIView+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = EABEBE581DCC7FE3000A615F /* UIView+Rotate.m */; };
 		EE55DC0C1BCFC74700B7660F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC0B1BCFC74700B7660F /* main.m */; };
 		EE55DC0F1BCFC74700B7660F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55DC0E1BCFC74700B7660F /* AppDelegate.m */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		EA4607041DD17F94007632EB /* rotate.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rotate.gif; sourceTree = "<group>"; };
+		EA4607061DD18207007632EB /* rotateUsage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rotateUsage.png; sourceTree = "<group>"; };
 		EABEBE571DCC7FE3000A615F /* UIView+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Rotate.h"; sourceTree = "<group>"; };
 		EABEBE581DCC7FE3000A615F /* UIView+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Rotate.m"; sourceTree = "<group>"; };
 		EE55DC061BCFC74700B7660F /* mainViewRotate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mainViewRotate.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				EA4607041DD17F94007632EB /* rotate.gif */,
+				EA4607061DD18207007632EB /* rotateUsage.png */,
 				EE55DC161BCFC74700B7660F /* Images.xcassets */,
 			);
 			name = Resources;
@@ -226,6 +229,7 @@
 			files = (
 				EE55DC151BCFC74700B7660F /* Main.storyboard in Resources */,
 				EA4607051DD17F94007632EB /* rotate.gif in Resources */,
+				EA4607071DD18207007632EB /* rotateUsage.png in Resources */,
 				EE55DC1A1BCFC74700B7660F /* LaunchScreen.xib in Resources */,
 				EE55DC171BCFC74700B7660F /* Images.xcassets in Resources */,
 			);
