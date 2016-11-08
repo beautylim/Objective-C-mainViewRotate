@@ -18,7 +18,7 @@ Objective-C 实现的UIView及其子类如UIImageView，沿着四边从里向外
     });</code>
 
 #2.有顺序旋转
-<code>
+```
 [self showTopImageView];
 - (void)showTopImageView{
     [NSThread sleepForTimeInterval:2];
@@ -48,5 +48,5 @@ Objective-C 实现的UIView及其子类如UIImageView，沿着四边从里向外
         
     });
 }
-</code>
+```
 欢迎来修改，指正或者有更好的代码设计模式和动画处理
