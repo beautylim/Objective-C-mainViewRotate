@@ -1,7 +1,7 @@
 # mainViewRotate
 Objective-C 实现的UIView及其子类如UIImageView，沿着四边从里向外3D旋转!
 
-![效果图](https://github.com/beautylim/Objective-C-mainViewRotate/blob/master/mainViewRotate/rotate.gif)
+![效果图](https://github.com/beautylim/Objective-C-mainViewRotate/blob/master/mainViewRotate/rotateResult.gif)
 
 效果如上图所示：
 
