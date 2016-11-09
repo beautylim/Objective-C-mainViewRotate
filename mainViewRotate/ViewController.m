@@ -27,6 +27,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self.view setBackgroundColor:[UIColor grayColor]];
+//    [self.view addSubview:self.topImageView];
+//    CGPoint first = self.topImageView.layer.anchorPoint;
+//    CGPoint postion1 = self.topImageView.layer.position;
+//    NSLog(@"inital anchorPointX:%f and Y: %f",first.x,first.y);
+//    NSLog(@"inital position1:%f and Y: %f",postion1.x,postion1.y);
+//    [self.topImageView.layer setAnchorPoint:CGPointMake(0, 0)];
+//    CGPoint postion2 = self.topImageView.layer.position;
+//    NSLog(@"second position2:%f and Y: %f",postion2.x,postion2.y);
+//    CGPoint origin2 = self.topImageView.frame.origin;
+//    NSLog(@"third origin2:%f and Y: %f",origin2.x,origin2.y);
+//    
     [self showTopImageView];
    
 }
